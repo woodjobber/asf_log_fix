@@ -9,7 +9,11 @@ else
  # shellcheck disable=SC2124
  DESC="$@"
 fi
-echo "commit info:$DESC"
+# 检查是否提供了任何参数
+if [ $# -eq 0 ]; then
+    DESC="INFO:默认更新信息😑"
+fi
+echo "commit info: $DESC"
 git add .
 git commit -m "$DESC"
 git push
