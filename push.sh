@@ -22,6 +22,7 @@ echo "[commit info] $COMMIT_DESC"
 chmod +x ./check_stage.sh
 ./check_stage.sh
 git add .
+./check_stage.sh
 git commit -m "$COMMIT_DESC"
 # 尝试推送
 attempt=0
