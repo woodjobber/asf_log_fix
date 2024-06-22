@@ -49,7 +49,7 @@ rsync -av --ignore-existing --progress --exclude='.*' "$source_folder/" "$target
 # shellcheck disable=SC2164
 cd "$target_folder"
 git add .
-git commit -m 'info: 自动构建'
+git commit -m 'info: 自动构建并发布'
 git push > "$PUSH_LOG" 2>&1
 # shellcheck disable=SC2181
 # 检查命令的退出状态码
