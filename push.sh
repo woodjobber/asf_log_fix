@@ -14,9 +14,9 @@ if [ $# -eq 0 ]; then
     # shellcheck disable=SC2034
     COMMIT_DESC="INFO:默认更新信息😑"
 fi
-echo "[commit info:] COMMIT_DESC"
+echo "[commit info:] $COMMIT_DESC"
 git add .
-git commit -m "COMMIT_DESC"
+git commit -m "$COMMIT_DESC"
 git push
 
 # 检查命令的退出状态码
