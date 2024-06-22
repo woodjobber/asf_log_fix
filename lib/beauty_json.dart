@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:json_fix/string_to_json.dart';
+import 'package:json_fix/version_info.dart';
 import 'package:json_shrink_widget/json_shrink_widget.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -250,6 +251,32 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                   ),
                 ),
               ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(),
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text(
+                    'Copyright © 2024 Soer, Inc.',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text(
+                    'v${WebVersionInfo.name}(${WebVersionInfo.build})',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
