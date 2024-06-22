@@ -2,11 +2,11 @@
 # 定义临时文件用于存储构建输出
 BUILD_LOG="build.log"
 if [ -f "$BUILD_LOG" ]; then
-    rm -f "$BUILD_LOG"
+    rm -f "$(pwd)/$BUILD_LOG"
 fi
 PUSH_LOG="push.log"
 if [ -f "$PUSH_LOG" ]; then
-    rm -f "$PUSH_LOG"
+    rm -f "$(pwd)/$PUSH_LOG"
 fi
 echo '开始执行build web ...'
 COMMIT_DESC=""
@@ -75,7 +75,7 @@ cd ${CUR_DIR0}
 if [ -z "${COMMIT_DESC}" ]; then
     ./push.sh
 else
-    ./push.sh "$COMMIT_DESC"
+    ./push.sh "${COMMIT_DESC}"
 fi
 echo '全部结束'
 exit 0
