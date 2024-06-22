@@ -7,7 +7,7 @@ else
  # shellcheck disable=SC2034
  DESC="$1"
 fi
-
+echo "commit info:$DESC"
 git add .
 git commit -m "$DESC"
 git push
