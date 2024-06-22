@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DESC=""
-
+# 检查是否提供了参数
 if [ -z "$1" ]; then
   DESC="INFO:默认更新信息😑"
 else
@@ -13,7 +13,7 @@ fi
 if [ $# -eq 0 ]; then
     DESC="INFO:默认更新信息😑"
 fi
-echo "commit info: $DESC"
+echo "[commit info:] $DESC"
 git add .
 git commit -m "$DESC"
 git push
