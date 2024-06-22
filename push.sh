@@ -19,12 +19,11 @@ if [ $# -eq 0 ]; then
     COMMIT_DESC="INFO:默认更新信息😑"
 fi
 echo "[commit info] $COMMIT_DESC"
+./check_stage.sh
 git add .
 git commit -m "$COMMIT_DESC"
 # 尝试推送
 attempt=0
-git add .
-git commit -m '[INFO]: 自动构建并发布'
 while [ $attempt -lt $MAX_RETRIES ]; do
     git push
     # shellcheck disable=SC2181
