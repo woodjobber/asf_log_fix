@@ -15,8 +15,7 @@ if [ -e "$PUSH_LOG" ]; then
 fi
 rm -f ./push.log
 rm -f ./build.log
-chmod +x ./updateversion.sh
-exit 0
+
 echo '开始执行build web ...'
 args=("")
 # 检查是否提供了任何参数
