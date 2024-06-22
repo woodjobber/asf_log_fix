@@ -172,6 +172,15 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                         },
                         child: const Text('打开json.cn'),
                       ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          launchUrlString('https://chatgpt.com/');
+                        },
+                        child: const Text('打开ChatGPT'),
+                      ),
                     ],
                   ),
                 ),

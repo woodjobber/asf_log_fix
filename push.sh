@@ -7,7 +7,7 @@ if [ -z "$1" ]; then
 else
  # shellcheck disable=SC2034
  # shellcheck disable=SC2124
- COMMIT_DESC="$@"
+ COMMIT_DESC="[INFO]:$@"
 fi
 # 检查是否提供了任何参数
 if [ $# -eq 0 ]; then

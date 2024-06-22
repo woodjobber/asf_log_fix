@@ -1,13 +1,19 @@
 #!/bin/bash
+# shellcheck disable=SC2034
+MAX_RETRIES=5
+# shellcheck disable=SC2034
+RETRY_DELAY=3  # 单位：秒
+
 # 定义临时文件用于存储构建输出
 BUILD_LOG="$(pwd)/build.log"
-if [ -f "$BUILD_LOG" ]; then
+if [ -e "$BUILD_LOG" ]; then
     rm -f "$BUILD_LOG"
 fi
 PUSH_LOG="$(pwd)/push.log"
-if [ -f "$PUSH_LOG" ]; then
+if [ -e "$PUSH_LOG" ]; then
     rm -f "$PUSH_LOG"
 fi
+
 echo '开始执行build web ...'
 args=("")
 # 检查是否提供了任何参数
@@ -57,18 +63,38 @@ find "${target_folder}" -mindepth 1 -maxdepth 1 ! -name ".*" -exec rm -rf {} +
 rsync -av --ignore-existing --progress --exclude='.*' "$source_folder/" "$target_folder"
 # shellcheck disable=SC2164
 cd "$target_folder"
+# 尝试推送
+attempt=0
 git add .
 git commit -m '[INFO]: 自动构建并发布'
-git push > "$PUSH_LOG" 2>&1
-# shellcheck disable=SC2181
-# 检查命令的退出状态码
-if [ $? -ne 0 ]; then
-    echo "Flutter web push failed."
+while [ $attempt -lt $MAX_RETRIES ]; do
+    git push > "$PUSH_LOG" 2>&1
+    # shellcheck disable=SC2181
+    # 检查命令的退出状态码
+    if [ $? -eq 0 ]; then
+        echo "Flutter web push succeeded."
+        break
+    else
+        echo "Flutter web push failed. Retrying..."
+        attempt=$((attempt+1))
+        sleep $RETRY_DELAY
+    fi
+done
+
+if [ $attempt -eq $MAX_RETRIES ]; then
+    echo "Flutter web push failed after $MAX_RETRIES attempts."
     cat "$PUSH_LOG"
     exit 1
-else
-    echo "Flutter web push succeeded."
 fi
+# shellcheck disable=SC2181
+## 检查命令的退出状态码
+#if [ $? -ne 0 ]; then
+#    echo "Flutter web push failed."
+#    cat "$PUSH_LOG"
+#    exit 1
+#else
+#    echo "Flutter web push succeeded."
+#fi
 # shellcheck disable=SC2086
 # shellcheck disable=SC2164
 cd ${CUR_DIR0}
