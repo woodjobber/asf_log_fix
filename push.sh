@@ -22,8 +22,8 @@ echo "[commit info] $COMMIT_DESC"
 chmod +x ./check_stage.sh
 ./check_stage.sh
 git add .
-./check_stage.sh
 git commit -m "$COMMIT_DESC"
+./check_stage.sh
 # 尝试推送
 attempt=0
 while [ $attempt -lt $MAX_RETRIES ]; do
