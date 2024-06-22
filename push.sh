@@ -6,7 +6,8 @@ if [ -z "$1" ]; then
   DESC="INFO:默认更新信息😑"
 else
  # shellcheck disable=SC2034
- DESC="$1"
+ # shellcheck disable=SC2124
+ DESC="$@"
 fi
 echo "commit info:$DESC"
 git add .
