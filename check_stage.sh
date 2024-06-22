@@ -12,12 +12,7 @@ if [ ! -d .git ]; then
     exit 1
 fi
 
-# 检查是否有未提交的更改
-if [ -n "$(git status --porcelain)" ]; then
-    echo "有未提交的更改"
-else
-    echo "没有未提交的更改"
-fi
+
 git fetch origin
 
 # 检查本地分支是否有未推送的提交

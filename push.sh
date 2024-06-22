@@ -20,6 +20,8 @@ if [ $# -eq 0 ]; then
 fi
 echo "[commit info] $COMMIT_DESC"
 chmod +x check_stage.sh
+chmod +x check_workspace.sh
+./check_workspace.sh
 git add .
 git commit -m "$COMMIT_DESC"
 ./check_stage.sh
