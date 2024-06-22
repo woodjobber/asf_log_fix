@@ -13,7 +13,8 @@ PUSH_LOG="$(pwd)/push.log"
 if [ -e "$PUSH_LOG" ]; then
     rm -f "$PUSH_LOG"
 fi
-
+rm -f ./push.log
+rm -f ./build.log
 echo '开始执行build web ...'
 args=("")
 # 检查是否提供了任何参数

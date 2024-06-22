@@ -31,7 +31,6 @@ while [ $attempt -lt $MAX_RETRIES ]; do
     # 检查命令的退出状态码
     if [ $? -eq 0 ]; then
         echo "json_fix push succeeded."
-        rm -f ./push.log
         exit 0
     else
         echo "json_fix push failed. Retrying..."
