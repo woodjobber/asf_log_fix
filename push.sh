@@ -1,7 +1,15 @@
 #!/bin/bash
 
+DESC=""
+if [ -z "$1" ]; then
+  DESC="INFO:默认更新信息"
+else
+ # shellcheck disable=SC2034
+ DESC="$1"
+fi
+
 git add .
-git commit -m 'info: 默认更新'
+git commit -m "$DESC"
 git push
 
 # 检查命令的退出状态码
