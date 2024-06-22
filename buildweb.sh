@@ -1,22 +1,22 @@
 #!/bin/bash
 # 定义临时文件用于存储构建输出
-BUILD_LOG="build.log"
+BUILD_LOG="$(pwd)/build.log"
 if [ -f "$BUILD_LOG" ]; then
-    rm -f "$(pwd)/$BUILD_LOG"
+    rm -f "$BUILD_LOG"
 fi
-PUSH_LOG="push.log"
+PUSH_LOG="$(pwd)/push.log"
 if [ -f "$PUSH_LOG" ]; then
-    rm -f "$(pwd)/$PUSH_LOG"
+    rm -f "$PUSH_LOG"
 fi
 echo '开始执行build web ...'
-COMMIT_DESC=""
+args=("")
 # 检查是否提供了任何参数
 if [ $# -eq 0 ]; then
-    COMMIT_DESC="INFO:默认更新信息😑"
+    args=("INFO:默认更新信息😑")
 else
     # shellcheck disable=SC2124
     # shellcheck disable=SC2034
-    COMMIT_DESC="$@"
+    args=("$@")
 fi
 ./updateversion.sh
 # 执行 flutter build web 命令并重定向输出到临时文件
@@ -72,10 +72,10 @@ fi
 # shellcheck disable=SC2086
 # shellcheck disable=SC2164
 cd ${CUR_DIR0}
-if [ -z "${COMMIT_DESC}" ]; then
+if [ -z "${args[0]}" ]; then
     ./push.sh
 else
-    ./push.sh "${COMMIT_DESC}"
+    ./push.sh "${args[@]}"
 fi
 echo '全部结束'
 exit 0
