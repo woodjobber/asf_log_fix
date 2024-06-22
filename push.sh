@@ -19,7 +19,7 @@ if [ $# -eq 0 ]; then
     COMMIT_DESC="INFO:默认更新信息😑"
 fi
 echo "[commit info] $COMMIT_DESC"
-chmod +x ./check_stage.sh
+chmod +x check_stage.sh
 git add .
 git commit -m "$COMMIT_DESC"
 ./check_stage.sh
