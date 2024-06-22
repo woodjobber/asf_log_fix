@@ -15,6 +15,7 @@ if [ -e "$PUSH_LOG" ]; then
 fi
 rm -f ./push.log
 rm -f ./build.log
+
 echo '开始执行build web ...'
 args=("")
 # 检查是否提供了任何参数
@@ -104,5 +105,7 @@ if [ -z "${args[0]}" ]; then
 else
     ./push.sh "${args[@]}"
 fi
+chmod +x ./refresh_project_dir.sh
+./refresh_project_dir.sh
 echo '全部结束'
 exit 0
