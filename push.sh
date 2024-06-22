@@ -1,6 +1,7 @@
 #!/bin/bash
 
 DESC=""
+echo "$1"
 if [ -z "$1" ]; then
   DESC="INFO:默认更新信息😑"
 else
