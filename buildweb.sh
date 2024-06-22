@@ -2,13 +2,22 @@
 # 定义临时文件用于存储构建输出
 BUILD_LOG="build.log"
 if [ -f "$BUILD_LOG" ]; then
-    rm "$BUILD_LOG"
+    rm -f "$BUILD_LOG"
 fi
 PUSH_LOG="push.log"
 if [ -f "$PUSH_LOG" ]; then
-    rm "$PUSH_LOG"
+    rm -f "$PUSH_LOG"
 fi
 echo '开始执行build web ...'
+COMMIT_DESC=""
+# 检查是否提供了任何参数
+if [ $# -eq 0 ]; then
+    COMMIT_DESC="INFO:默认更新信息😑"
+else
+    # shellcheck disable=SC2124
+    # shellcheck disable=SC2034
+    COMMIT_DESC="$@"
+fi
 ./updateversion.sh
 # 执行 flutter build web 命令并重定向输出到临时文件
 flutter build web --web-renderer html --no-tree-shake-icons --base-href /https://soer.top/json/ > "$BUILD_LOG" 2>&1
@@ -63,8 +72,10 @@ fi
 # shellcheck disable=SC2086
 # shellcheck disable=SC2164
 cd ${CUR_DIR0}
-git add .
-git commit -m 'info: 版本更新'
-git push
+if [ -z "${COMMIT_DESC}" ]; then
+    ./push.sh
+else
+    ./push.sh "$COMMIT_DESC"
+fi
 echo '全部结束'
 exit 0
