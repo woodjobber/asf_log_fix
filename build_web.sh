@@ -15,8 +15,8 @@ if [ -e "$PUSH_LOG" ]; then
 fi
 rm -f push.log
 rm -f build.log
-
-echo '开始执行build web ...'
+echo '开始执行任务构建与发布任务...'
+echo '[任务]执行构建 web ...'
 args=("")
 # 检查是否提供了任何参数
 if [ $# -eq 0 ]; then
@@ -58,7 +58,7 @@ target_folder=${HOME}/Desktop/jsonviewer/web/
 mkdir -p "$target_folder"
 # shellcheck disable=SC2006
 source_folder=`pwd`
-echo "移动到：${target_folder}"
+echo "构建产物移动到：${target_folder}"
 find "${target_folder}" -mindepth 1 -maxdepth 1 ! -name ".*" -exec rm -rf {} +
 
 # shellcheck disable=SC2048
@@ -69,6 +69,7 @@ cd "$target_folder"
 attempt=0
 git add .
 git commit -m '[INFO]: 自动构建并发布'
+echo "[任务]执行web app发布任务..."
 while [ $attempt -lt $MAX_RETRIES ]; do
     git push > "$PUSH_LOG" 2>&1
     # shellcheck disable=SC2181
@@ -100,6 +101,7 @@ fi
 # shellcheck disable=SC2086
 # shellcheck disable=SC2164
 cd ${CUR_DIR0}
+echo '[任务]执行推送[json_fix]到远端仓库任务...'
 if [ -z "${args[0]}" ]; then
     ./push.sh
 else
