@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:json_fix/string_to_json.dart';
 import 'package:json_fix/version_info.dart';
+import 'package:json_pretty/json_pretty.dart';
 import 'package:json_shrink_widget/json_shrink_widget.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -232,6 +233,7 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                                 alignment: Alignment.topLeft,
                                 child: SelectionArea(
                                   child: JsonShrinkWidget(
+                                    indentation: '  ',
                                     json: jsonData,
                                     style: const JsonShrinkStyle.light(
                                       textStyle: TextStyle(
@@ -276,7 +278,8 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                             minLines: 16,
                             decoration: const InputDecoration(
                               hintText: '请输入控制台Flutter Json日志...',
-                              contentPadding: EdgeInsets.all(16),
+                              contentPadding:
+                                  EdgeInsets.only(top: 0, bottom: 16),
                               border: InputBorder.none,
                             ),
                           ),
