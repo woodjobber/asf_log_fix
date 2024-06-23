@@ -16,7 +16,7 @@ class BeautyJsonPage extends StatefulWidget {
 
 class _BeautyJsonPageState extends State<BeautyJsonPage> {
   TextEditingController controller = TextEditingController();
-  String? data;
+  String? jsonData;
   bool errorEnable = false;
 
   @override
@@ -47,10 +47,11 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          if (data == null || data is String && data!.isEmpty) {
+                          if (jsonData == null ||
+                              jsonData is String && jsonData!.isEmpty) {
                             return;
                           }
-                          Clipboard.setData(ClipboardData(text: data!));
+                          Clipboard.setData(ClipboardData(text: jsonData!));
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('复制成功'),
@@ -65,7 +66,7 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                       ElevatedButton(
                         onPressed: () {
                           controller.text = '';
-                          data = null;
+                          jsonData = null;
                           errorEnable = false;
                           setState(() {});
                         },
@@ -76,7 +77,7 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          data = null;
+                          jsonData = null;
                           setState(() {});
                         },
                         child: const Text('恢复原始值'),
@@ -95,23 +96,23 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                           //     r'\[.{0,16}\]\s?I?/?flutter(?:.*?):\s?|I?/?flutter(?:[^\[:\]]*?):\s?');
                           Pattern regex = RegExp(
                               r'\[.{0,16}\]\s?I?/?flutter.*?:\s?|I?/?flutter[^:\[\]]*:\s?');
-                          var text2 = controller.text;
-                          var text = controller.text.replaceAll(regex, '');
-                          text = text.replaceAll(RegExp(r'[\r\n]'), '');
-                          controller.text = text2;
+                          var oldText = controller.text;
+                          var jsonText = controller.text.replaceAll(regex, '');
+                          jsonText = jsonText.replaceAll(RegExp(r'[\r\n]'), '');
+                          controller.text = oldText;
                           try {
-                            var d = jsonDecode(text);
+                            var d = jsonDecode(jsonText);
                             if (d is! Map && d is! List) {
                               errorEnable = true;
                             }
                           } catch (e) {
                             try {
-                              var map = text.toJson();
+                              var map = jsonText.toJson();
                               if (map.isEmpty) {
                                 errorEnable = true;
                               } else {
                                 errorEnable = false;
-                                text = jsonEncode(map);
+                                jsonText = jsonEncode(map);
                               }
                             } catch (e) {
                               errorEnable = true;
@@ -121,9 +122,9 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                             }
                           }
                           if (!errorEnable) {
-                            data = text;
+                            jsonData = jsonText;
                           } else {
-                            data = '';
+                            jsonData = '';
                           }
                           setState(() {});
                         },
@@ -186,7 +187,7 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                 ),
               ),
             ),
-            if (data != null)
+            if (jsonData != null)
               Expanded(
                 child: errorEnable == true
                     ? const Center(child: Text('尝试修复失败~'))
@@ -207,7 +208,7 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                                 alignment: Alignment.topLeft,
                                 child: SelectionArea(
                                   child: JsonShrinkWidget(
-                                    json: data,
+                                    json: jsonData,
                                     style: const JsonShrinkStyle.light(
                                       textStyle: TextStyle(
                                           color: Colors.green,
@@ -228,7 +229,7 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                         ),
                       ),
               ),
-            if (data == null)
+            if (jsonData == null)
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(32.0),
