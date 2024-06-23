@@ -20,7 +20,7 @@ echo '开始执行build web ...'
 args=("")
 # 检查是否提供了任何参数
 if [ $# -eq 0 ]; then
-    args=("INFO:默认更新信息😑")
+    args=("默认更新信息😑")
 else
     # shellcheck disable=SC2124
     # shellcheck disable=SC2034

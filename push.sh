@@ -7,18 +7,28 @@ RETRY_DELAY=3  # 单位：秒
 COMMIT_DESC=""
 # 检查是否提供了参数,-z 判断是否为空
 if [ -z "$1" ]; then
-  COMMIT_DESC="INFO:默认更新信息😑"
+  COMMIT_DESC="[INFO]:默认更新信息😑"
 else
  # shellcheck disable=SC2034
  # shellcheck disable=SC2124
- COMMIT_DESC="[INFO]:$@"
+
+# 前缀
+PREFIX="[INFO]"
+
+# 判断字符串是否以指定前缀开头
+if [[ "$@" == "$PREFIX"* ]]; then
+  COMMIT_DESC="$@"
+else
+  COMMIT_DESC="[INFO]:$@"
+fi
+
 fi
 # 检查是否提供了任何参数
 if [ $# -eq 0 ]; then
     # shellcheck disable=SC2034
-    COMMIT_DESC="INFO:默认更新信息😑"
+    COMMIT_DESC="[INFO]:默认更新信息😑"
 fi
-echo "[commit info] $COMMIT_DESC"
+echo "[提交描述] $COMMIT_DESC"
 chmod +x check_stage.sh
 chmod +x check_workspace.sh
 ./check_workspace.sh
