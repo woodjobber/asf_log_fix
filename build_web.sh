@@ -3,7 +3,7 @@
 MAX_RETRIES=5
 # shellcheck disable=SC2034
 RETRY_DELAY=3  # 单位：秒
-
+start_time=$(date +%s)
 # 定义临时文件用于存储构建输出
 BUILD_LOG="$(pwd)/build.log"
 if [ -e "$BUILD_LOG" ]; then
@@ -111,5 +111,7 @@ rm -f push.log
 rm -f build.log
 chmod +x refresh_project_dir.sh
 ./refresh_project_dir.sh
-echo '全部结束'
+end_time=$(date +%s)
+execution_time=$((end_time - start_time))
+echo "全部任务执行结束耗时: $execution_time seconds"
 exit 0
