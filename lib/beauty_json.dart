@@ -60,16 +60,28 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                       ElevatedButton(
                         onPressed: () {
                           jsonData = null;
+                          errorEnable = false;
                           setState(() {});
                         },
-                        child: const Text('🔄恢复原始值'),
+                        child: const Text('🔄恢复'),
                       ),
                       const SizedBox(
                         width: 10,
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          if (controller.text.isEmpty) {
+                          if (jsonData != null &&
+                              jsonData is String &&
+                              jsonData!.isNotEmpty) {
+                            Clipboard.setData(ClipboardData(text: jsonData!));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('复制成功'),
+                              ),
+                            );
+                            return;
+                          }
+                          if (controller.text.isEmpty || errorEnable) {
                             return;
                           }
                           Clipboard.setData(
@@ -79,8 +91,10 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                               content: Text('复制成功'),
                             ),
                           );
+                          Clipboard.setData(
+                              ClipboardData(text: controller.text));
                         },
-                        child: const Text('🖨️复制原始值'),
+                        child: const Text('🖨️复制'),
                       ),
                       const SizedBox(
                         width: 10,
@@ -132,30 +146,9 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                           setState(() {});
                         },
                         child: const Text(
-                          '🔨尝试修复',
+                          '🔨智能修复',
                           style: TextStyle(
                               color: Colors.red, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (jsonData == null ||
-                              jsonData is String && jsonData!.isEmpty) {
-                            return;
-                          }
-                          Clipboard.setData(ClipboardData(text: jsonData!));
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('复制成功'),
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          '🖨️复制修复结果',
-                          style: TextStyle(color: Colors.pink),
                         ),
                       ),
                       const SizedBox(
@@ -168,25 +161,15 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                             controller.text = const JsonEncoder.withIndent('  ')
                                 .convert(jsonObject);
                             setState(() {});
-                          } catch (_) {}
+                          } catch (_) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Json格式不正确'),
+                              ),
+                            );
+                          }
                         },
-                        child: const Text('🖌️美化Json格式'),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (controller.text.isEmpty) return;
-                          Clipboard.setData(
-                              ClipboardData(text: controller.text));
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('复制成功'),
-                            ),
-                          );
-                        },
-                        child: const Text('🖨️复制美化Json格式'),
+                        child: const Text('🖌️美化格式'),
                       ),
                       const SizedBox(
                         width: 10,
@@ -214,7 +197,14 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
             if (jsonData != null)
               Expanded(
                 child: errorEnable == true
-                    ? const Center(child: Text('尝试修复失败~'))
+                    ? const Center(
+                        child: Text(
+                        '修复失败~',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40,
+                        ),
+                      ))
                     : Padding(
                         padding: const EdgeInsets.all(32.0),
                         child: Container(

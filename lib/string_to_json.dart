@@ -19,13 +19,15 @@ extension StringToJson on String {
         }
         // Remove leading and trailing braces if present
         if (value != null && value.endsWith('}')) {
-          value = value.substring(0, value.length - 1);
+          value = value.substring(0, value.length - 1).trimRight();
         }
         if (key.startsWith('{')) {
           key = key.substring(1);
         }
-        key = key.trim().replaceAll(RegExp(r'\"|\x20'), '');
-
+        String patternKey = r'\"|\x20|\s';
+        key = key.trim().replaceAll(RegExp(patternKey), '');
+        String patternKey2 = r"^[\']|[\']$";
+        key = key.replaceAll(RegExp(patternKey2), '');
         // Assign key-value pair to the map
         String pattern = r'^[0-9]+$';
         bool hasMatch = RegExp(pattern).hasMatch(value ?? '');
