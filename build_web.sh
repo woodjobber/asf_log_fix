@@ -13,8 +13,8 @@ PUSH_LOG="$(pwd)/push.log"
 if [ -e "$PUSH_LOG" ]; then
     rm -f "$PUSH_LOG"
 fi
-rm -f ./push.log
-rm -f ./build.log
+rm -f push.log
+rm -f build.log
 
 echo '开始执行build web ...'
 args=("")
@@ -77,8 +77,8 @@ while [ $attempt -lt $MAX_RETRIES ]; do
         echo "Flutter web push succeeded."
         break
     else
-        echo "Flutter web push failed. Retrying..."
         attempt=$((attempt+1))
+        echo "Flutter web push failed. Retrying${attempt}..."
         sleep $RETRY_DELAY
     fi
 done
@@ -105,6 +105,8 @@ if [ -z "${args[0]}" ]; then
 else
     ./push.sh "${args[@]}"
 fi
+rm -f push.log
+rm -f build.log
 chmod +x refresh_project_dir.sh
 ./refresh_project_dir.sh
 echo '全部结束'
