@@ -3,7 +3,7 @@
 
 class WebVersionInfo {
   static const String name = '1.1.0';
-  static const int build = 3;
+  static const int build = 4;
 }
 
 

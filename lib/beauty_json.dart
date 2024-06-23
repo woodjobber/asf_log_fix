@@ -59,17 +59,6 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          jsonData = null;
-                          errorEnable = false;
-                          setState(() {});
-                        },
-                        child: const Text('🔄恢复'),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
                           if (jsonData != null &&
                               jsonData is String &&
                               jsonData!.isNotEmpty) {
@@ -95,6 +84,17 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                               ClipboardData(text: controller.text));
                         },
                         child: const Text('🖨️复制'),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          jsonData = null;
+                          errorEnable = false;
+                          setState(() {});
+                        },
+                        child: const Text('🔄还原'),
                       ),
                       const SizedBox(
                         width: 10,
@@ -215,7 +215,8 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                         ),
                       ))
                     : Padding(
-                        padding: const EdgeInsets.all(32.0),
+                        padding: const EdgeInsets.only(
+                            left: 32, right: 32, top: 16, bottom: 16),
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -255,7 +256,8 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
             if (jsonData == null)
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(32.0),
+                  padding: const EdgeInsets.only(
+                      left: 32, right: 32, top: 16, bottom: 16),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Container(
