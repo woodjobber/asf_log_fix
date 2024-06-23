@@ -157,6 +157,14 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                       ElevatedButton(
                         onPressed: () {
                           try {
+                            if (jsonData != null &&
+                                jsonData is String &&
+                                jsonData!.isNotEmpty) {
+                              return;
+                            }
+                            if (controller.text.isEmpty || errorEnable) {
+                              return;
+                            }
                             var jsonObject = json.decode(controller.text);
                             controller.text = const JsonEncoder.withIndent('  ')
                                 .convert(jsonObject);
@@ -199,10 +207,11 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                 child: errorEnable == true
                     ? const Center(
                         child: Text(
-                        '修复失败~',
+                        '⚠修复失败~',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 40,
+                          color: Colors.red,
                         ),
                       ))
                     : Padding(
