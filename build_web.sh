@@ -101,7 +101,7 @@ fi
 # shellcheck disable=SC2086
 # shellcheck disable=SC2164
 cd ${CUR_DIR0}
-echo '[任务]执行推送[json_fix]到远端仓库任务...'
+echo '[任务]执行推送[json_fix]到远端仓库...'
 if [ -z "${args[0]}" ]; then
     ./push.sh
 else

@@ -140,7 +140,7 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                             }
                           }
                           if (!errorEnable) {
-                            jsonData = jsonText;
+                            jsonData = prettyPrintJson(jsonText);
                           } else {
                             jsonData = '';
                           }
