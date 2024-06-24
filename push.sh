@@ -46,7 +46,7 @@ while [ $attempt -lt $MAX_RETRIES ]; do
         exit 0
     else
         attempt=$((attempt+1))
-        echo "json_fix push failed. Retrying${attempt}..."
+        echo "json_fix push failed. Retrying ${attempt}次..."
         sleep $RETRY_DELAY
     fi
 done

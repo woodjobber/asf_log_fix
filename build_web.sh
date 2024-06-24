@@ -68,27 +68,28 @@ cd "$target_folder"
 # 尝试推送
 attempt=0
 git add .
-git commit -m '[INFO]: 自动构建并发布'
-echo "[任务]执行web app发布任务..."
+git commit -m '[INFO]: 默认更新信息'
+echo "[任务]执行[ASF日志修复器]推送..."
 while [ $attempt -lt $MAX_RETRIES ]; do
     git push > "$PUSH_LOG" 2>&1
     # shellcheck disable=SC2181
     # 检查命令的退出状态码
     if [ $? -eq 0 ]; then
-        echo "Flutter web push succeeded."
+        echo "[ASF日志修复器] push succeeded."
         break
     else
         attempt=$((attempt+1))
-        echo "Flutter web push failed. Retrying${attempt}..."
+        echo "[ASF日志修复器] push failed. Retrying ${attempt}次..."
         sleep $RETRY_DELAY
     fi
 done
 
 if [ $attempt -eq $MAX_RETRIES ]; then
-    echo "Flutter web push failed after $MAX_RETRIES attempts."
+    echo "[ASF日志修复器] push failed after $MAX_RETRIES attempts."
     cat "$PUSH_LOG"
     exit 1
 fi
+echo "[任务]执行[ASF日志修复器]推送成功！"
 # shellcheck disable=SC2181
 ## 检查命令的退出状态码
 #if [ $? -ne 0 ]; then
