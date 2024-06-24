@@ -41,7 +41,6 @@ dependencies:
      url: https://github.com/woodjobber/json_viewer.git
      path: json_shrink_widget
   url_launcher: ^6.1.10
-  json_pretty: ^1.0.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:json_fix/string_to_json.dart';
 import 'package:json_fix/version_info.dart';
-import 'package:json_pretty/json_pretty.dart';
 import 'package:json_shrink_widget/json_shrink_widget.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -140,7 +139,10 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                             }
                           }
                           if (!errorEnable) {
-                            jsonData = prettyPrintJson(jsonText);
+                            var jsonObject = json.decode(jsonText);
+                            jsonObject = const JsonEncoder.withIndent('  ')
+                                .convert(jsonObject);
+                            jsonData = jsonObject;
                           } else {
                             jsonData = '';
                           }
@@ -233,7 +235,6 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                                 alignment: Alignment.topLeft,
                                 child: SelectionArea(
                                   child: JsonShrinkWidget(
-                                    indentation: '  ',
                                     json: jsonData,
                                     style: const JsonShrinkStyle.light(
                                       textStyle: TextStyle(
