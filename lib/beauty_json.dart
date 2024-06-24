@@ -112,8 +112,8 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                           RegExp regex = RegExp(
                               r'\[.{0,16}\]\s?I?/?flutter.*?:\s?|I?/?flutter[^:\[\]]*:\s?');
                           var oldText = controller.text;
-                          var jsonText = controller.text.replaceAll(regex, '');
-                          if (regex.hasMatch(jsonText)) {
+                          var jsonText = oldText.replaceAll(regex, '');
+                          if (regex.hasMatch(oldText)) {
                             jsonText =
                                 jsonText.replaceAll(RegExp(r'[\r\n]'), '');
                           }
