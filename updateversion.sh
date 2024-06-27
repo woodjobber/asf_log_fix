@@ -38,7 +38,7 @@ fi
 ((BLD++))
 echo "$BLD" > .build_seq
 echo "Version: $VER ($BLD)" > .current_version
-
+echo "更新后版本：$STRING1 build:$BLD"
 # 要检查的文件路径
 FILE_PATH="lib/version_info.dart"
 
