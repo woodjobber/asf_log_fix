@@ -110,7 +110,7 @@ class _BeautyJsonPageState extends State<BeautyJsonPage> {
                           //     r'\[.{0,16}\]\s?I?/?flutter(?:.*?):\s?|I?/?flutter(?:[^\[:\]]*?):\s?');
                           // (?:\d{4}-)?\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}
                           String pattern =
-                              r'\[.{0,16}\]\s?I?/?flutter(?:.*?):\s?|I?/?flutter[^:,"\\\[\]]*:\s?|(?:\d{4}-)?\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}\s(I/)?flutter(?:[^:,"\[\]\\]){0,12}:(?:[\s]?)|.{0,25}\s?I/flutter(?:[^:,"\\\[\]]){0,12}:[?:\s?]|.{0,25}\s?flutter(?:[^:,"\\\[\]]){0,12}:[?:\s?]';
+                              r'\[.{0,16}\]\s?I?/?flutter(?:.*?):\s?|I?/?flutter[^:,"\\\[\]]*:\s?|(?:\d{4}-)?\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}\s(I/)?flutter(?:[^:,"\[\]\\]){0,12}:(?:[\s]?)|.{0,25}\s?I/flutter(?:[^:,"\\\[\]]){0,12}:(?:[\s]?)|.{0,25}\s?flutter(?:[^:,"\\\[\]]){0,12}:(?:[\s]?)';
                           RegExp regex = RegExp(pattern);
                           var oldText = controller.text;
                           var jsonText = oldText.replaceAll(regex, '');
