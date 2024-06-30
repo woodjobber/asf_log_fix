@@ -39,6 +39,8 @@ fi
 echo "$BLD" > .build_seq
 echo "Version: $VER ($BLD)" > .current_version
 echo "更新后版本：$STRING1 build:$BLD"
+NEW_VERSION="$STRING1+$BLD"
+sed -i '' "s|version:.*|version: $NEW_VERSION|g" pubspec.yaml
 # 要检查的文件路径
 FILE_PATH="lib/version_info.dart"
 

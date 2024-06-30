@@ -21,10 +21,11 @@ case $ENV_NUM in
 esac
 
 # Replace environment URL in configuration file
-sed -i "s|{{BASE_URL}}|$ENV_URL|g" lib/config.dart
+#sed -i '' "s|{{BASE_URL}}|$ENV_URL|g" lib/config.dart
 
 # Prompt user to enter app version
+# shellcheck disable=SC2162
 read -p "Enter app version number: " NEW_VERSION
 
 # Replace app version in pubspec.yaml
-sed -i "s|version:.*|version: $NEW_VERSION|g" pubspec.yaml
+sed -i '' "s|version:.*|version: $NEW_VERSION|g" pubspec.yaml
