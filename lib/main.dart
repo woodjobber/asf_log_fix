@@ -1,9 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'beauty_json.dart';
 
 void main() {
-  runApp(const MyApp());
+  runZoned(() => runApp(const MyApp()), zoneSpecification: ZoneSpecification(
+    print: (self, parent, zone, line) async {
+      parent.print(zone, "[${DateTime.now()}] APP:$line");
+    },
+  ));
 }
 
 class MyApp extends StatelessWidget {
